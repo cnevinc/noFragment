@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainView = (MainView) this.getLayoutInflater().inflate(R.layout.main, null);
-        this.setContentView(mainView)
+        this.setContentView(mainView);
     }
 
     @Override
