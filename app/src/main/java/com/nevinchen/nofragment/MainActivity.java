@@ -12,8 +12,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "test";
 
-    // ugly global object to save view history
-    public static ArrayList<Pair<Class, Object>> history = new ArrayList<>();
+    // Used to save view history
+    public ArrayList<Pair<Class, Object>> history = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState != null) {
-
+            history = (ArrayList<Pair<Class, Object>>)savedInstanceState.getSerializable("history");
             ArrayList<Pair<Class, Object>> local = new ArrayList<Pair<Class, Object>>();
             local.addAll(history);
 
@@ -35,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
             }
             local.clear();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putSerializable("history", history);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 

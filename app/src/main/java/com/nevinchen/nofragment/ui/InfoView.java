@@ -90,10 +90,11 @@ public class InfoView extends LinearLayout {
     * */
     public void removeFromParent() {
         ((ViewGroup) getParent()).removeView(InfoView.this);
-        for (int i = MainActivity.history.size() - 1; i >= 0; i--) {
-            Pair<Class, Object> page = MainActivity.history.get(i);
+        MainActivity host =(MainActivity)getContext();
+        for (int i = host.history.size() - 1; i >= 0; i--) {
+            Pair<Class, Object> page = host.history.get(i);
             if (page.first == InfoView.class) {
-                MainActivity.history.remove(i);
+                host.history.remove(i);
                 break;
             }
         }
@@ -129,7 +130,8 @@ public class InfoView extends LinearLayout {
     }
 
     public void saveState(Object data) {
-        MainActivity.history.add(new Pair(InfoView.class, data));
+        MainActivity host =(MainActivity)getContext();
+        host.history.add(new Pair(InfoView.class, data));
     }
 
 
