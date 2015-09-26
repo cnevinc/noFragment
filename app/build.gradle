@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 22
@@ -40,6 +41,9 @@ dependencies {
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.2'
 
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
+
+    compile 'com.github.frankiesardo:auto-parcel:0.3'
+    apt 'com.github.frankiesardo:auto-parcel-processor:0.3'
 
 
 }

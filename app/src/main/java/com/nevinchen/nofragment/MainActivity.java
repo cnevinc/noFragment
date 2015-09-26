@@ -2,36 +2,40 @@ package com.nevinchen.nofragment;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Pair;
 
-import com.nevinchen.nofragment.ui.MainView;
+import com.nevinchen.nofragment.ui.InfoView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    MainView mainView;
+    public static String TAG = "test";
+    public static ArrayList<Pair<Class, Object>> history = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainView = (MainView) this.getLayoutInflater().inflate(R.layout.main, null);
-        this.setContentView(mainView);
-    }
+        setContentView(R.layout.main);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        if (savedInstanceState != null) {
 
-        if (id == R.id.action_settings) {
-            return true;
+            ArrayList<Pair<Class, Object>> local = new ArrayList<Pair<Class, Object>>();
+            local.addAll(history);
+            for (int i = 0; i < local.size(); i++) {
+                Pair<Class, Object> node = local.get(i);
+                if (node.first == InfoView.class) {
+                    InfoView info = InfoView.AddMe(this,node.second);
+                    //  Log.e(TAG, "bind " + node.first + "----" + node.second);
+                }
+            }
+            local.clear();
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
+
+
 }
