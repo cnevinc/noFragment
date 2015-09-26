@@ -6,6 +6,10 @@ Update:
 Recently I've found [this artichle from @Piwai](https://corner.squareup.com/2014/10/advocating-against-android-fragments.html) who had elaborated the idea way too better than me. I'll try adopt his idea into my sample in the future.
 
 
+Note:
+ 1. Removed embedded view. 
+ 2. Add activity re-creation handling
+
 Todo:
- 1. Handle rotation in onSaveInstanceState() 
- 2. Add animation when adding a custom view
+ 1. Add animation when adding a custom view
+ 2. Try other inmplementation (ex. Flow)
