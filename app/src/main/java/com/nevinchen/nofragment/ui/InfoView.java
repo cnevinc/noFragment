@@ -45,8 +45,6 @@ public class InfoView extends LinearLayout {
     public InfoView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupBackPressed();
-        this.setId((int) (Math.random() * 1000));
-
     }
 
     @Override protected void onFinishInflate() {
@@ -85,19 +83,6 @@ public class InfoView extends LinearLayout {
         return v;
     }
 
-    /*
-   *  Add {@link com.nevinchen.nofragment.ui.InfoView} to what ever parent you want
-   *
-   * */
-    public static InfoView AddMe(ViewGroup host, Object data) {
-        // since there's only one activity, we can guarantee the inflated activity is the same activity with host
-        Activity activity = (Activity) host.getContext();
-        InfoView v = (InfoView) activity.getLayoutInflater().inflate(R.layout.info, null);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        host.addView(v, 0);
-        v.bind(data);
-        return v;
-    }
 
     /*
     *  remove {@link com.nevinchen.nofragment.ui.InfoView} from parent
@@ -133,31 +118,6 @@ public class InfoView extends LinearLayout {
         appBar.setVisibility(View.GONE);
     }
 
-//    @Override
-//    public Parcelable onSaveInstanceState() {
-//        //begin boilerplate code that allows parent classes to save time
-//        Parcelable superState = super.onSaveInstanceState();
-//
-//        SavedState ss = new SavedState(superState);
-//        ss.time = this.mTime ;
-//        return ss;
-//    }
-//
-//    @Override
-//    public void onRestoreInstanceState(Parcelable state) {
-//        //begin boilerplate code so parent classes can restore time
-//        if(!(state instanceof SavedState)) {
-//            super.onRestoreInstanceState(state);
-//            return;
-//        }
-//
-//        SavedState ss = (SavedState)state;
-//        super.onRestoreInstanceState(ss.getSuperState());
-//        //end
-//
-//        this.mTime = ss.time;
-//    }
-
 
     private void bind(Object data) {
         User user = (User) data;
@@ -173,34 +133,5 @@ public class InfoView extends LinearLayout {
     }
 
 
-//    static class SavedState extends BaseSavedState {
-//        String time;
-//
-//        SavedState(Parcelable superState) {
-//            super(superState);
-//        }
-//
-//        private SavedState(Parcel in) {
-//            super(in);
-//            time = in.readString();
-//        }
-//
-//        @Override
-//        public void writeToParcel(Parcel out, int flags) {
-//            super.writeToParcel(out, flags);
-//            out.writeString(time);
-//        }
-//
-//        public static final Parcelable.Creator<SavedState> CREATOR
-//                = new Parcelable.Creator<SavedState>() {
-//            public SavedState createFromParcel(Parcel in) {
-//                return new SavedState(in);
-//            }
-//
-//            public SavedState[] newArray(int size) {
-//                return new SavedState[size];
-//            }
-//        };
-//    }
 
 }

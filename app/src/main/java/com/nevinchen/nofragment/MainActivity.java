@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static String TAG = "test";
-    public static ArrayList<Pair<Class, Object>> history = new ArrayList<>();
 
+    // ugly global object to save view history
+    public static ArrayList<Pair<Class, Object>> history = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
             ArrayList<Pair<Class, Object>> local = new ArrayList<Pair<Class, Object>>();
             local.addAll(history);
+
             for (int i = 0; i < local.size(); i++) {
                 Pair<Class, Object> node = local.get(i);
                 if (node.first == InfoView.class) {
@@ -33,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
             }
             local.clear();
         }
-
-
     }
 
 

@@ -43,21 +43,7 @@
             android:layout_height="wrap_content"
             android:text="show below"/>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/embed"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ff9224"
-                android:orientation="vertical"
-                >
-
-            </LinearLayout>
-
-        </ScrollView>
 
     </LinearLayout>
 </com.nevinchen.nofragment.ui.MainView>
