@@ -37,11 +37,6 @@
             android:layout_height="wrap_content"
             android:text="show entirely"/>
 
-        <Button
-            android:id="@+id/show_embed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="show below"/>
 
 
 
