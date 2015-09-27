@@ -1,19 +1,11 @@
 
 package com.nevinchen.nofragment.data;
 
-import android.os.Parcelable;
+public class User {
+    public String name;
 
+    public String avatar;
 
-import java.util.List;
-
-import auto.parcel.AutoParcel;
-
-@AutoParcel
-public  class User {
-    public  String name;
-
-    public  String avatar;
-
-    public  String time;
+    public String time;
 
 }
