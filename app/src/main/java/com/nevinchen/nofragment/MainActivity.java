@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 
+import com.nevinchen.nofragment.data.User;
 import com.nevinchen.nofragment.ui.InfoView;
+import com.nevinchen.nofragment.ui.MainView;
 
 import java.util.ArrayList;
 
@@ -14,12 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
     // Used to save view history
     public ArrayList<Pair<Class, Object>> history = new ArrayList<>();
+    private MainView mainView;
 
+    public void updateMainView(User user){
+        mainView.bind(user);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+
+        this.mainView = MainView.AddMe(this,null);
+        setContentView(mainView);
 
 
         if (savedInstanceState != null) {

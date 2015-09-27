@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nevinchen.nofragment.MainActivity;
 import com.nevinchen.nofragment.R;
@@ -26,7 +27,15 @@ public class MainView extends LinearLayout {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    @Bind(R.id.selected_user)
+    TextView selected_user;
 
+
+    public void bind(User user){
+        if (user != null) {
+            selected_user.setText("Selected : "+user.name + "@" + user.time );
+        }
+    }
 
     public MainView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,9 +45,10 @@ public class MainView extends LinearLayout {
         super(context, attrs, defStyle);
     }
 
-    public static MainView AddMe(MainActivity host) {
+    public static MainView AddMe(MainActivity host,User user) {
         MainView v = (MainView) host.getLayoutInflater().inflate(R.layout.main, null);
         host.setContentView(v);
+        v.bind(user);
         return v;
     }
 
@@ -58,7 +68,7 @@ public class MainView extends LinearLayout {
     public void showInfo() {
         User user = new User();
         user.name = "Nevin Chen";
-        user.avatar = "https://lh4.googleusercontent.com/HeuT6rAOKGSMMgwYH6LkTaoF0rH-sL7APoBc_lug5W7wGwwxWsqMhuNVUvZyhW8p--ocoxUeJEwBncE=w1290-h544";
+        user.avatar = "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/005/024/1b0/22cebd0.jpg";
         user.time = Instant.now().toString();
         InfoView v = InfoView.AddMe((MainActivity) getContext(),user);
         v.saveState(user);

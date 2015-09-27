@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class InfoView extends LinearLayout {
 
@@ -31,6 +32,14 @@ public class InfoView extends LinearLayout {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+
+    User user;
+
+    @OnClick(R.id.card)
+    public void updateMain(){
+        ((MainActivity)this.getContext()).updateMainView(user);
+        this.removeFromParent();
+    }
 
     @Bind(R.id.avatar)
     ImageView avatar;
@@ -75,12 +84,17 @@ public class InfoView extends LinearLayout {
     *  Add {@link com.nevinchen.nofragment.ui.InfoView} to your activity's content view
     *
     * */
-    public static InfoView AddMe(MainActivity host, Object data) {
-        InfoView v = (InfoView) host.getLayoutInflater().inflate(R.layout.info, null);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        host.addContentView(v, p);
-        v.bind(data);
-        return v;
+    public static InfoView AddMe(MainActivity host, Object user) {
+        if (user instanceof  User){
+            InfoView v = (InfoView) host.getLayoutInflater().inflate(R.layout.info, null);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            host.addContentView(v, p);
+            v.bind((User)user);
+            return v;
+        }else{
+            throw new IllegalArgumentException("InfoView only allow User type data ");
+        }
+
     }
 
 
@@ -120,12 +134,11 @@ public class InfoView extends LinearLayout {
     }
 
 
-    private void bind(Object data) {
-        User user = (User) data;
+    private void bind(User user) {
+        this.user = user ;
         Picasso.with(getContext()).load(user.avatar).placeholder(R.drawable.ic_launcher).into(avatar);
         name.setText(user.name);
         time.setText(user.time);
-
 
     }
 
