@@ -23,7 +23,7 @@ import butterknife.OnClick;
  */
 public class MainView extends LinearLayout {
 
-    private static final String TAG = "nevin";
+    private static final String TAG = "test";
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
@@ -70,8 +70,7 @@ public class MainView extends LinearLayout {
         user.name = "Nevin Chen";
         user.avatar = "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/005/024/1b0/22cebd0.jpg";
         user.time = Instant.now().toString();
-        InfoView v = InfoView.AddMe((MainActivity) getContext(),user);
-        v.saveState(user);
+        InfoView.AddMe((MainActivity) getContext(),user , false);
     }
 
 

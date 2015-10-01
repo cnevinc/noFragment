@@ -84,12 +84,16 @@ public class InfoView extends LinearLayout {
     *  Add {@link com.nevinchen.nofragment.ui.InfoView} to your activity's content view
     *
     * */
-    public static InfoView AddMe(MainActivity host, Object user) {
+    public static InfoView AddMe(MainActivity host, Object user , boolean restore) {
         if (user instanceof  User){
             InfoView v = (InfoView) host.getLayoutInflater().inflate(R.layout.info, null);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             host.addContentView(v, p);
             v.bind((User)user);
+            if (!restore){
+                v.saveState(user);
+
+            }
             return v;
         }else{
             throw new IllegalArgumentException("InfoView only allow User type data ");
@@ -142,7 +146,7 @@ public class InfoView extends LinearLayout {
 
     }
 
-    public void saveState(Object data) {
+    private void saveState(Object data) {
         MainActivity host =(MainActivity)getContext();
         host.history.add(new Pair(InfoView.class, data));
     }
