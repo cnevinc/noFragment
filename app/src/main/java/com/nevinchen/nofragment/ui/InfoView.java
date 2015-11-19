@@ -3,8 +3,10 @@ package com.nevinchen.nofragment.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.transition.TransitionManager;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.KeyEvent;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.nevinchen.nofragment.MainActivity;
 import com.nevinchen.nofragment.R;
 import com.nevinchen.nofragment.data.User;
+import com.nevinchen.nofragment.util.Utils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -35,6 +38,7 @@ public class InfoView extends LinearLayout {
 
     User user;
 
+    // Demo 3: How custom view talk to other custom view
     @OnClick(R.id.card)
     public void updateMain(){
         ((MainActivity)this.getContext()).updateMainView(user);
@@ -80,20 +84,33 @@ public class InfoView extends LinearLayout {
     }
 
 
+
     /*
-    *  Add {@link com.nevinchen.nofragment.ui.InfoView} to your activity's content view
+    *  Add {@link com.nevinchen.nofragment.ui.InfoView} to your activity's content view.
+    *
+    *  @param host : The content view this view will be added.
+    *  @param user : Any data that will be bind to this view
+    *  @param isFromHistory : if this view is added from history (ex recovered from configuration change)
+    *         when
     *
     * */
-    public static InfoView AddMe(MainActivity host, Object user , boolean restore) {
+    public static InfoView AddMe(MainActivity host, Object user , boolean isFromHistory) {
         if (user instanceof  User){
             InfoView v = (InfoView) host.getLayoutInflater().inflate(R.layout.info, null);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            host.addContentView(v, p);
-            v.bind((User)user);
-            if (!restore){
-                v.saveState(user);
 
+            ViewGroup parent =  ((ViewGroup) host.findViewById(android.R.id.content));
+
+            if (!isFromHistory){
+                Utils.changeScense(parent);
+                v.saveState(user);
             }
+
+            host.addContentView(v, p);
+
+            v.bind((User)user);
+
+
             return v;
         }else{
             throw new IllegalArgumentException("InfoView only allow User type data ");
@@ -107,7 +124,10 @@ public class InfoView extends LinearLayout {
     *
     * */
     public void removeFromParent() {
-        ((ViewGroup) getParent()).removeView(InfoView.this);
+        ViewGroup parent = (ViewGroup) getParent();
+        Utils.changeScense(parent);
+
+        parent.removeView(InfoView.this);
         MainActivity host =(MainActivity)getContext();
         for (int i = host.history.size() - 1; i >= 0; i--) {
             Pair<Class, Object> page = host.history.get(i);
