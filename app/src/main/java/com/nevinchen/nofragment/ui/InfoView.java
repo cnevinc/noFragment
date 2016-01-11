@@ -8,10 +8,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,9 @@ public class InfoView extends LinearLayout {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+
+    @Bind(R.id.et)
+    EditText et;
 
     User user;
 
@@ -71,8 +76,21 @@ public class InfoView extends LinearLayout {
         toolbar.setBackgroundColor(Color.RED);
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 removeFromParent();
+            }
+        });
+
+        //  clear focus after keyboard hidden
+        et.setHint("this is how you deal with EditText");
+        et.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    et.clearFocus();
+                }
+                return false;
             }
         });
 
